@@ -1,0 +1,8 @@
+repos:
+  - url: 'https://github.com/missedone/multi-git-sync-test.git'
+    branch: main
+    auth:
+      user: private
+      accessToken: {{ getEnv "PAT" }}
+    destDir: ./out/clone/multi-git-sync-test
+    schedule: '*/1 * * * *'

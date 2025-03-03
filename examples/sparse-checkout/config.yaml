@@ -1,0 +1,9 @@
+repos:
+  - url: 'https://github.com/missedone/multi-git-sync-test.git'
+    branch: main
+    subPath: foo
+    auth:
+      user: private
+      accessToken: {{ getEnv "PAT" }}
+    destDir: ./out/sparse-checkout/multi-git-sync-test
+    schedule: '*/1 * * * *'

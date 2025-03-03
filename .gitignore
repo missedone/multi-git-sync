@@ -1,0 +1,50 @@
+# Compiled binary files
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Output files
+*.out
+
+# Build and dependency directories
+/bin/
+/vendor/
+
+# IDE and editor-specific files
+.idea/
+.vscode/
+*.swp
+*.iml
+
+# Compiled Go files
+*.test
+*.prof
+
+# Binary and source files for testing
+/_test/
+/_testmain.go
+
+# Log files
+*.log
+
+# Ignore environment-specific files
+.env
+
+# Ignore macOS resource fork files
+.DS_Store
+
+# Ignore editor backup files
+*~
+
+# Ignore user-specific files
+/users/
+
+dist/
+out/
+
+generated/
+
+coverage.xml
+coverage.txt
+report.xml

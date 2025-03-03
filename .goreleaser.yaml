@@ -1,0 +1,41 @@
+project_name: multi-git-sync
+before:
+  hooks: []
+
+builds:
+- id: multi-git-sync
+  main: ./
+  binary: multi-git-sync
+  goos:
+    - linux
+    - darwin
+  goarch:
+    - amd64
+    - arm64
+  env:
+    - CGO_ENABLED=0
+  ldflags:
+    - -X=main.version={{.Version}} -X=main.build={{.ShortCommit}}
+    - -s -w
+
+snapshot:
+  name_template: "{{ .Tag }}-next"
+
+dockers:
+  - image_templates: [ "{{ .ProjectName }}:{{ .Env.IMAGE_TAG }}" ]
+    dockerfile: Dockerfile
+    goos: linux
+    goarch: amd64
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
