@@ -27,5 +27,5 @@ jobs:
 
       - name: Run test
         env:
-          PAT: ${{ secrets.GIT_SYNC_TEST_PAT }}
+          TEST_PAT: ${{ secrets.GIT_SYNC_TEST_PAT }}
         run: make test
