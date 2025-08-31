@@ -1,43 +1,53 @@
+version: "2"
+run:
+  modules-download-mode: mod
 linters:
   enable:
-    - errcheck
-    - gofmt
     - dupl
     - goconst
     - gocyclo
-    - goimports
     - gosec
-    - gosimple
-    - govet
-    - ineffassign
     - lll
     - misspell
     - nakedret
     - prealloc
-    - staticcheck
-    - typecheck
     - unconvert
     - unparam
-    - unused
-issues:
-  exclude-dirs:
-    - build
-    - docs
-    - logging/tint
-    - oidc
-  exclude-files:
-    - ".*_test\\.go$"
-run:
-  modules-download-mode: mod
-# all available settings of specific linters
-linters-settings:
-  lll:
-    # max line length, lines longer will be reported. Default is 120.
-    # '\t' is counted as 1 character by default, and can be changed with the tab-width option
-    line-length: 120
-    # tab width in spaces. Default to 1.
-    tab-width: 1
-  gosec:
-    excludes:
-      # G402: TLS InsecureSkipVerify set true
-      - G402
+  settings:
+    gosec:
+      excludes:
+        - G402
+    lll:
+      line-length: 120
+      tab-width: 1
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - .*_test\.go$
+      - build
+      - docs
+      - logging/tint
+      - oidc
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  exclusions:
+    generated: lax
+    paths:
+      - .*_test\.go$
+      - build
+      - docs
+      - logging/tint
+      - oidc
+      - third_party$
+      - builtin$
+      - examples$
