@@ -8,6 +8,9 @@ on:
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # To create GitHub releases
+      packages: write # To push to GitHub Packages
     steps:
       - name: Checkout
         uses: actions/checkout@v4
