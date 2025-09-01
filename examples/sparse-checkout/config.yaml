@@ -2,6 +2,7 @@ repos:
   - url: 'https://github.com/missedone/multi-git-sync-test.git'
     branch: main
     subPath: foo
+    depth: 1
     auth:
       user: private
       accessToken: {{ getEnv "PAT" }}

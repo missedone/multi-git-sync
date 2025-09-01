@@ -132,7 +132,6 @@ func TestSyncWithShallowClone(t *testing.T) {
 }
 
 func TestSyncWithSparseCheckout(t *testing.T) {
-	t.SkipNow()
 	err := os.Setenv("PAT", os.Getenv("TEST_PAT"))
 	c, err := parseConfig(testSparseCheckConfig)
 	assert.NoError(t, err)
