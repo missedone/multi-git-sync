@@ -3,14 +3,14 @@ Multi-Git-Sync
 
 ## Overview
 
-`multi-git-sync` is a cli to sync the git repos with crontab-like scheduler
+`multi-git-sync` is a cli to sync the (multi)-git repo(s) with crontab-like scheduler, it can be used as the replacement of https://github.com/kubernetes/git-sync
 
 ## Features
 
-* crontab-like scheduler
-* git full clone
-* git shallow clone
-* git sparse checkout
+* [x] crontab-like scheduler
+* [x] git full clone
+* [x] git shallow clone
+* [x] git sparse checkout
 
 ## Usage
 
