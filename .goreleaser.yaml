@@ -22,7 +22,9 @@ snapshot:
   name_template: "{{ .Tag }}-next"
 
 dockers:
-  - image_templates: [ "{{ .ProjectName }}:{{ .Env.IMAGE_TAG }}" ]
+  - image_templates:
+    - "ghcr.io/missedone/multi-git-sync:{{ .Env.IMAGE_TAG }}"
+    - "ghcr.io/missedone/multi-git-sync:latest"
     dockerfile: Dockerfile
     goos: linux
     goarch: amd64
