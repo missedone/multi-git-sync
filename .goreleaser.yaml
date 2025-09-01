@@ -23,7 +23,7 @@ snapshot:
 
 dockers:
   - image_templates:
-    - "ghcr.io/missedone/multi-git-sync:{{ .Env.IMAGE_TAG }}"
+    - "ghcr.io/missedone/multi-git-sync:{{ .Version }}"
     - "ghcr.io/missedone/multi-git-sync:latest"
     dockerfile: Dockerfile
     goos: linux
