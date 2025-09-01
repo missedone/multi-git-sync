@@ -19,15 +19,15 @@ Multi-Git-Sync
   ```shell
   ./multi-git-sync -h
   ```
-* run with sparse-checkout (aka, partial clone)
+* run with sparse-checkout (aka, partial clone), [sample config.yaml](examples/sparse-checkout/config.yaml)
   ```shell
   ./multi-git-sync -config examples/sparse-checkout/config.yaml
   ```
-* run with full-clone
+* run with full-clone [sample config.yaml](examples/clone/config.yaml)
   ```shell
   ./multi-git-sync -config examples/clone/config.yaml
   ```
-* run with shallow and partial clone
+* run with shallow and partial clone [sample config.yaml](examples/shallow/config.yaml)
   ```shell
   ./multi-git-sync -config examples/shallow/config.yaml
   ```
