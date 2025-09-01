@@ -53,6 +53,7 @@ func TestParseConfigWithSshClone(t *testing.T) {
 	assert.Equal(t, "main", repo.Branch)
 	assert.Equal(t, "git", repo.Auth.User)
 	assert.Equal(t, "~/.ssh/id_rsa", repo.Auth.PrivateKeyFile)
+	assert.Equal(t, "", repo.Auth.PrivateKeyPassphrase)
 }
 
 func TestSyncWithFullClone(t *testing.T) {
