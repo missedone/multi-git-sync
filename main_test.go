@@ -49,7 +49,7 @@ func TestParseConfigWithSshClone(t *testing.T) {
 
 	assert.Equal(t, 1, len(c.Repos))
 	repo := c.Repos[0]
-	assert.Equal(t, "https://github.com/missedone/multi-git-sync-test.git", repo.URL)
+	assert.Equal(t, "git@github.com:missedone/multi-git-sync-test.git", repo.URL)
 	assert.Equal(t, "main", repo.Branch)
 	assert.Equal(t, "git", repo.Auth.User)
 	assert.Equal(t, "~/.ssh/id_rsa", repo.Auth.PrivateKeyFile)
@@ -100,6 +100,28 @@ func TestSyncWithFullClone(t *testing.T) {
 	b, err := os.ReadFile(filepath.Join(tmpDir, testFile))
 	assert.NoError(t, err)
 	assert.True(t, strings.Contains(string(b), testStr), "`%s` should contain the latest content", testFile)
+}
+
+func TestSyncWithSshClone(t *testing.T) {
+	c, err := parseConfig(testSshCloneConfig)
+	assert.NoError(t, err)
+
+	repo := c.Repos[0]
+	err = sync(repo)
+	assert.NoError(t, err)
+
+	_, err = os.Stat("./out/sshclone/multi-git-sync-test/foo/readme.md")
+	assert.NoError(t, err)
+	_, err = os.Stat("./out/sshclone/multi-git-sync-test/bar/readme.md")
+	assert.NoError(t, err)
+	_, err = os.Stat("./out/sshclone/multi-git-sync-test/README.md")
+	assert.NoError(t, err)
+
+	err = sync(repo)
+	assert.NoError(t, err, "Should be no error with 1st re-sync the full cloned repo")
+
+	err = sync(repo)
+	assert.NoError(t, err, "Should be no error with 2nd re-sync the full cloned repo")
 }
 
 func TestSyncWithShallowClone(t *testing.T) {

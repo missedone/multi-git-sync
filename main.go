@@ -159,9 +159,14 @@ func execute(conf *Config) error {
 }
 
 func sync(repo Repo) error {
-	r, err := git.PlainOpen(repo.DestDir)
+	var err error
 	var gitAuth transport.AuthMethod
-	if repo.Auth.PrivateKeyFile != "" {
+	if strings.HasPrefix(repo.URL, "http") {
+		gitAuth = &http.BasicAuth{
+			Username: repo.Auth.User,
+			Password: repo.Auth.AccessToken,
+		}
+	} else {
 		keyFile := repo.Auth.PrivateKeyFile
 		if strings.HasPrefix(keyFile, "~/") {
 			homedir, _ := os.UserHomeDir()
@@ -171,12 +176,8 @@ func sync(repo Repo) error {
 		if err != nil {
 			return err
 		}
-	} else {
-		gitAuth = &http.BasicAuth{
-			Username: repo.Auth.User,
-			Password: repo.Auth.AccessToken,
-		}
 	}
+	r, err := git.PlainOpen(repo.DestDir)
 	if err != nil {
 		slog.Info(fmt.Sprintf("git clone --no-checkout %s -b %s %s", repo.URL, repo.Branch, repo.DestDir),
 			slog.Any("SubPath", repo.SubPath),
