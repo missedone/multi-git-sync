@@ -30,9 +30,10 @@ var (
 )
 
 type Auth struct {
-	User           string `yaml:"user"`
-	AccessToken    string `yaml:"accessToken"`
-	PrivateKeyFile string `yaml:"privateKeyFile"`
+	User                 string `yaml:"user"`
+	AccessToken          string `yaml:"accessToken"`
+	PrivateKeyFile       string `yaml:"privateKeyFile"`
+	PrivateKeyPassphrase string `yaml:"privateKeyPassphrase"`
 }
 
 type Repo struct {
@@ -166,7 +167,7 @@ func sync(repo Repo) error {
 			homedir, _ := os.UserHomeDir()
 			keyFile = filepath.Join(homedir, keyFile[2:])
 		}
-		gitAuth, err = ssh.NewPublicKeysFromFile(repo.Auth.User, keyFile, "")
+		gitAuth, err = ssh.NewPublicKeysFromFile(repo.Auth.User, keyFile, repo.Auth.PrivateKeyPassphrase)
 		if err != nil {
 			return err
 		}
