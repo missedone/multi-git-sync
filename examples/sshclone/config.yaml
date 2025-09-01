@@ -1,0 +1,8 @@
+repos:
+  - url: 'https://github.com/missedone/multi-git-sync-test.git'
+    branch: main
+    auth:
+      user: git
+      privateKeyFile: ~/.ssh/id_rsa
+    destDir: ./out/clone/multi-git-sync-test
+    schedule: '*/1 * * * *'

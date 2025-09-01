@@ -21,6 +21,9 @@ var testSparseCheckConfig []byte
 //go:embed examples/clone/config.yaml
 var testCloneConfig []byte
 
+//go:embed examples/sshclone/config.yaml
+var testSshCloneConfig []byte
+
 //go:embed examples/shallow/config.yaml
 var testShallowCloneConfig []byte
 
@@ -38,6 +41,18 @@ func TestParseConfig(t *testing.T) {
 	assert.Equal(t, "main", repo.Branch)
 	assert.Equal(t, "foo", repo.SubPath)
 	assert.Equal(t, testToken, repo.Auth.AccessToken)
+}
+
+func TestParseConfigWithSshClone(t *testing.T) {
+	c, err := parseConfig(testSshCloneConfig)
+	assert.NoError(t, err)
+
+	assert.Equal(t, 1, len(c.Repos))
+	repo := c.Repos[0]
+	assert.Equal(t, "https://github.com/missedone/multi-git-sync-test.git", repo.URL)
+	assert.Equal(t, "main", repo.Branch)
+	assert.Equal(t, "git", repo.Auth.User)
+	assert.Equal(t, "~/.ssh/id_rsa", repo.Auth.PrivateKeyFile)
 }
 
 func TestSyncWithFullClone(t *testing.T) {

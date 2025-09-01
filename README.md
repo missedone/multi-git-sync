@@ -11,6 +11,7 @@ Multi-Git-Sync
 * [x] git full clone
 * [x] git shallow clone
 * [x] git sparse checkout
+* [x] git auth with access token or ssh key pair
 
 ## Usage
 
@@ -34,7 +35,7 @@ Multi-Git-Sync
 
 ### Run Docker
 ```shell
-docker run --rm -v $(pwd)/examples/sparse-checkout:/opt/git-sync/ multi-git-sync:main -config=/opt/git-sync/config.yaml
+docker run --rm -v $(pwd)/examples/sparse-checkout:/opt/git-sync/ docker pull ghcr.io/missedone/multi-git-sync:latest -config=/opt/git-sync/config.yaml
 ```
 
 ## Development

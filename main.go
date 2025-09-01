@@ -8,6 +8,8 @@ import (
 	"log/slog"
 	"os"
 	"os/signal"
+	"path/filepath"
+	"strings"
 	"syscall"
 	"text/template"
 	"time"
@@ -17,6 +19,7 @@ import (
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/transport"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
+	"github.com/go-git/go-git/v5/plumbing/transport/ssh"
 	"github.com/lmittmann/tint"
 	"gopkg.in/yaml.v3"
 )
@@ -27,8 +30,9 @@ var (
 )
 
 type Auth struct {
-	User        string `yaml:"user"`
-	AccessToken string `yaml:"accessToken"`
+	User           string `yaml:"user"`
+	AccessToken    string `yaml:"accessToken"`
+	PrivateKeyFile string `yaml:"privateKeyFile"`
 }
 
 type Repo struct {
@@ -155,9 +159,22 @@ func execute(conf *Config) error {
 
 func sync(repo Repo) error {
 	r, err := git.PlainOpen(repo.DestDir)
-	gitAuth := &http.BasicAuth{
-		Username: repo.Auth.User,
-		Password: repo.Auth.AccessToken,
+	var gitAuth transport.AuthMethod
+	if repo.Auth.PrivateKeyFile != "" {
+		keyFile := repo.Auth.PrivateKeyFile
+		if strings.HasPrefix(keyFile, "~/") {
+			homedir, _ := os.UserHomeDir()
+			keyFile = filepath.Join(homedir, keyFile[2:])
+		}
+		gitAuth, err = ssh.NewPublicKeysFromFile(repo.Auth.User, keyFile, "")
+		if err != nil {
+			return err
+		}
+	} else {
+		gitAuth = &http.BasicAuth{
+			Username: repo.Auth.User,
+			Password: repo.Auth.AccessToken,
+		}
 	}
 	if err != nil {
 		slog.Info(fmt.Sprintf("git clone --no-checkout %s -b %s %s", repo.URL, repo.Branch, repo.DestDir),
