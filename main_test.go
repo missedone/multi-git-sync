@@ -49,7 +49,7 @@ func TestParseConfigWithSshClone(t *testing.T) {
 
 	assert.Equal(t, 1, len(c.Repos))
 	repo := c.Repos[0]
-	assert.Equal(t, "https://github.com/missedone/multi-git-sync-test.git", repo.URL)
+	assert.Equal(t, "git@github.com:missedone/multi-git-sync-test.git", repo.URL)
 	assert.Equal(t, "main", repo.Branch)
 	assert.Equal(t, "git", repo.Auth.User)
 	assert.Equal(t, "~/.ssh/id_rsa", repo.Auth.PrivateKeyFile)

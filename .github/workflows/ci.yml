@@ -29,6 +29,7 @@ jobs:
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.GIT_SYNC_TEST_KEY }}
+          known_hosts: ${{ secrets.GIT_SYNC_TEST_KNOWNHOSTS }}
           name: id_rsa
           if_key_exists: fail
 
