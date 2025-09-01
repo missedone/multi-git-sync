@@ -102,6 +102,28 @@ func TestSyncWithFullClone(t *testing.T) {
 	assert.True(t, strings.Contains(string(b), testStr), "`%s` should contain the latest content", testFile)
 }
 
+func TestSyncWithSshClone(t *testing.T) {
+	c, err := parseConfig(testSshCloneConfig)
+	assert.NoError(t, err)
+
+	repo := c.Repos[0]
+	err = sync(repo)
+	assert.NoError(t, err)
+
+	_, err = os.Stat("./out/sshclone/multi-git-sync-test/foo/readme.md")
+	assert.NoError(t, err)
+	_, err = os.Stat("./out/sshclone/multi-git-sync-test/bar/readme.md")
+	assert.NoError(t, err)
+	_, err = os.Stat("./out/sshclone/multi-git-sync-test/README.md")
+	assert.NoError(t, err)
+
+	err = sync(repo)
+	assert.NoError(t, err, "Should be no error with 1st re-sync the full cloned repo")
+
+	err = sync(repo)
+	assert.NoError(t, err, "Should be no error with 2nd re-sync the full cloned repo")
+}
+
 func TestSyncWithShallowClone(t *testing.T) {
 	err := os.Setenv("PAT", os.Getenv("TEST_PAT"))
 	c, err := parseConfig(testShallowCloneConfig)

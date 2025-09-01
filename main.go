@@ -159,7 +159,7 @@ func execute(conf *Config) error {
 }
 
 func sync(repo Repo) error {
-	r, err := git.PlainOpen(repo.DestDir)
+	var err error
 	var gitAuth transport.AuthMethod
 	if repo.Auth.PrivateKeyFile != "" {
 		keyFile := repo.Auth.PrivateKeyFile
@@ -177,6 +177,7 @@ func sync(repo Repo) error {
 			Password: repo.Auth.AccessToken,
 		}
 	}
+	r, err := git.PlainOpen(repo.DestDir)
 	if err != nil {
 		slog.Info(fmt.Sprintf("git clone --no-checkout %s -b %s %s", repo.URL, repo.Branch, repo.DestDir),
 			slog.Any("SubPath", repo.SubPath),
