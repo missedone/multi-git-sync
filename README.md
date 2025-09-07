@@ -3,7 +3,7 @@ Multi-Git-Sync
 
 ## Overview
 
-`multi-git-sync` is a cli to sync the (multi)-git repo(s) with crontab-like scheduler, it can be used as the replacement of https://github.com/kubernetes/git-sync
+`multi-git-sync` is a simple tool to sync the (multi)-git repo(s) with crontab-like scheduler, it can be used as the replacement of https://github.com/kubernetes/git-sync
 
 ## Features
 
@@ -54,3 +54,7 @@ curl -fsSL https://github.com/gotestyourself/gotestsum/releases/download/v1.12.0
 ```shell
 make build
 ```
+
+## Use cases
+
+Please refer to [USE_CASES.md](USE_CASES.md) for more details about the use cases with `multi-git-sync`
