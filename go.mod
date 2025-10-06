@@ -4,7 +4,7 @@ go 1.25.0
 
 require (
 	github.com/go-co-op/gocron/v2 v2.16.6
-	github.com/go-git/go-git/v5 v5.16.2
+	github.com/go-git/go-git/v5 v5.16.3
 	github.com/lmittmann/tint v1.1.2
 	github.com/stretchr/testify v1.11.1
 	gopkg.in/yaml.v3 v3.0.1
