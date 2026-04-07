@@ -3,7 +3,7 @@ module multi-git-sync
 go 1.25.0
 
 require (
-	github.com/go-co-op/gocron/v2 v2.19.1
+	github.com/go-co-op/gocron/v2 v2.20.0
 	github.com/go-git/go-git/v5 v5.17.2
 	github.com/lmittmann/tint v1.1.3
 	github.com/stretchr/testify v1.11.1
